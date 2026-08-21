@@ -1,150 +1,289 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #111;
-  color: #eee;
-  min-height: 100vh;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #111;
+    color: #eee;
+    min-height: 100vh;
 }
 
 .app {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
 }
 
 header {
-  text-align: center;
-  margin-bottom: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 header h1 {
-  font-size: 1.5rem;
-  letter-spacing: 0.02em;
+    font-size: 1.5rem;
+    letter-spacing: 0.02em;
 }
 
 header p {
-  color: #999;
-  margin-top: 0.25rem;
-  font-size: 0.9rem;
+    color: #999;
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
 }
 
 .item {
-  background: #1c1c1c;
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  padding: 1.25rem;
-  margin-bottom: 1.25rem;
+    background: #1c1c1c;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
 }
 
 .item h2 {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.item-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+}
+
+.item-toggle h2 {
+    margin-bottom: 1rem;
+}
+
+.chevron {
+    color: #999;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.15s ease;
+}
+
+.chevron.open {
+    transform: rotate(90deg);
+}
+
+.designs {
+    margin-top: 0.75rem;
+    border-top: 1px solid #2a2a2a;
+    padding-top: 0.35rem;
+}
+
+.designs .design {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #262626;
+}
+
+.designs .design:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.designs .row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: #bbb;
+    margin-bottom: 0.5rem;
+}
+
+.designs .row span:last-child {
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+    font-weight: 600;
+}
+
+.chip-line {
+    margin-top: 0.6rem;
+}
+
+.chip-line-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.35rem;
+}
+
+.chip-line-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.chip-line-total {
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+    font-weight: 600;
+}
+
+.size-split {
+    margin-top: 1rem;
+    border-top: 1px solid #2a2a2a;
+    padding-top: 0.9rem;
+}
+
+.size-split h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+}
+
+.pct-inputs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.pct-inputs label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.pct-inputs input {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #eee;
+    font-size: 1rem;
+    padding: 0.4rem 0.5rem;
+    width: 100%;
+    font-variant-numeric: tabular-nums;
+}
+
+.pct-inputs input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+.pct-warning {
+    color: #e0a04a;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
 }
 
 .inventory-shirt {
-  padding: 0.9rem 0;
-  border-bottom: 1px solid #262626;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #262626;
 }
 
 .inventory-shirt:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .inventory-shirt h3 {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
 .sizes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
 }
 
 .size {
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 6px;
-  padding: 0.25rem 0.55rem;
-  font-size: 0.85rem;
-  color: #999;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.85rem;
+    color: #999;
 }
 
 .size strong {
-  color: #eee;
-  font-variant-numeric: tabular-nums;
+    color: #eee;
+    font-variant-numeric: tabular-nums;
 }
 
 .inventory-shirt .row {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 0.6rem;
-  font-size: 0.9rem;
-  color: #bbb;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.6rem;
+    font-size: 0.9rem;
+    color: #bbb;
 }
 
 .inventory-shirt .row span:last-child {
-  font-variant-numeric: tabular-nums;
-  color: #fff;
-  font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+    font-weight: 600;
 }
 
 .inputs {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .inputs label {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  font-size: 0.8rem;
-  color: #999;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .inputs input {
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 6px;
-  color: #eee;
-  font-size: 1.1rem;
-  padding: 0.5rem 0.65rem;
-  width: 100%;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #eee;
+    font-size: 1.1rem;
+    padding: 0.5rem 0.65rem;
+    width: 100%;
 }
 
 .inputs input:focus {
-  outline: none;
-  border-color: #666;
+    outline: none;
+    border-color: #666;
 }
 
 .math .row {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.4rem 0;
-  font-size: 0.95rem;
-  color: #bbb;
-  border-bottom: 1px solid #262626;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    color: #bbb;
+    border-bottom: 1px solid #262626;
 }
 
 .math .row span:last-child {
-  font-variant-numeric: tabular-nums;
+    font-variant-numeric: tabular-nums;
 }
 
 .math .row.total {
-  border-bottom: none;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1.05rem;
-  padding-top: 0.6rem;
+    border-bottom: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding-top: 0.6rem;
 }
