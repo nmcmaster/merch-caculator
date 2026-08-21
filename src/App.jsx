@@ -59,6 +59,7 @@ const ITEMS = [
         perFestival: 30,
         designs: TSHIRT_DESIGNS,
         sizePcts: { ...DEFAULT_SIZE_PCTS },
+        logoSizePcts: { ...DEFAULT_SIZE_PCTS },
     },
     {
         key: "longsleeves",
@@ -147,14 +148,45 @@ function LogoBreakdown({ total, sizePcts }) {
     );
 }
 
+function SizeSplitEditor({ title, sizePcts, onSizeChange, children }) {
+    const pctSum = SIZES.reduce(
+        (sum, s) => sum + (Number(sizePcts[s]) || 0),
+        0,
+    );
+    return (
+        <div className="size-split">
+            <h3>{title}</h3>
+            <div className="pct-inputs">
+                {SIZES.map((size) => (
+                    <label key={size}>
+                        {size} %
+                        <input
+                            type="text"
+                            inputMode="numeric"
+                            value={sizePcts[size]}
+                            onChange={(e) => onSizeChange(size, e.target.value)}
+                        />
+                    </label>
+                ))}
+            </div>
+            {pctSum !== 100 && (
+                <p className="pct-warning">Percentages add up to {pctSum}%</p>
+            )}
+            {children}
+        </div>
+    );
+}
+
 function MerchItem({
     label,
     perShow,
     perFestival,
     designs,
     sizePcts,
+    logoSizePcts,
     onChange,
     onSizeChange,
+    onLogoSizeChange,
 }) {
     const [expanded, setExpanded] = useState(false);
     const showQty = Number(perShow) || 0;
@@ -162,9 +194,6 @@ function MerchItem({
     const showTotal = showQty * SHOWS;
     const festivalTotal = festivalQty * FESTIVALS;
     const total = showTotal + festivalTotal;
-    const pctSum = sizePcts
-        ? SIZES.reduce((sum, s) => sum + (Number(sizePcts[s]) || 0), 0)
-        : 0;
 
     return (
         <section className="item">
@@ -229,32 +258,15 @@ function MerchItem({
                 </div>
             </div>
             {sizePcts && (
-                <div className="size-split">
-                    <h3>Size split</h3>
-                    <div className="pct-inputs">
-                        {SIZES.map((size) => (
-                            <label key={size}>
-                                {size} %
-                                <input
-                                    type="text"
-                                    inputMode="numeric"
-                                    value={sizePcts[size]}
-                                    onChange={(e) =>
-                                        onSizeChange(size, e.target.value)
-                                    }
-                                />
-                            </label>
-                        ))}
-                    </div>
-                    {pctSum !== 100 && (
-                        <p className="pct-warning">
-                            Percentages add up to {pctSum}%
-                        </p>
-                    )}
+                <SizeSplitEditor
+                    title="Size split"
+                    sizePcts={sizePcts}
+                    onSizeChange={onSizeChange}
+                >
                     {!designs && (
                         <SizeChips total={total} sizePcts={sizePcts} />
                     )}
-                </div>
+                </SizeSplitEditor>
             )}
             {designs && expanded && (
                 <div className="designs">
@@ -262,17 +274,25 @@ function MerchItem({
                         const designQty =
                             Math.floor(total / designs.length) +
                             (i < total % designs.length ? 1 : 0);
+                        const isLogo = design === "Logo";
                         return (
                             <div className="design" key={design}>
+                                {isLogo && logoSizePcts && (
+                                    <SizeSplitEditor
+                                        title="Size split (logo shirts)"
+                                        sizePcts={logoSizePcts}
+                                        onSizeChange={onLogoSizeChange}
+                                    />
+                                )}
                                 <div className="row">
                                     <span>{design}</span>
                                     <span>{designQty}</span>
                                 </div>
                                 {sizePcts &&
-                                    (design === "Logo" ? (
+                                    (isLogo ? (
                                         <LogoBreakdown
                                             total={designQty}
-                                            sizePcts={sizePcts}
+                                            sizePcts={logoSizePcts || sizePcts}
                                         />
                                     ) : (
                                         <SizeChips
@@ -302,13 +322,13 @@ export default function App() {
         );
     };
 
-    const updateSizePct = (key, size, value) => {
+    const updateSizePct = (key, size, value, field = "sizePcts") => {
         if (value !== "" && !/^\d+$/.test(value)) return;
         const next = value === "" ? "" : Number(value);
         setItems((prev) =>
             prev.map((item) =>
                 item.key === key
-                    ? { ...item, sizePcts: { ...item.sizePcts, [size]: next } }
+                    ? { ...item, [field]: { ...item[field], [size]: next } }
                     : item,
             ),
         );
@@ -331,11 +351,15 @@ export default function App() {
                     perFestival={item.perFestival}
                     designs={item.designs}
                     sizePcts={item.sizePcts}
+                    logoSizePcts={item.logoSizePcts}
                     onChange={(field, value) =>
                         updateItem(item.key, field, value)
                     }
                     onSizeChange={(size, value) =>
                         updateSizePct(item.key, size, value)
+                    }
+                    onLogoSizeChange={(size, value) =>
+                        updateSizePct(item.key, size, value, "logoSizePcts")
                     }
                 />
             ))}
